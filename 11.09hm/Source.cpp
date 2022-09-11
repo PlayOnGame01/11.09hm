@@ -8,12 +8,18 @@ class MyString
     private:
     char* str; // указатель на строку
     int length ; // длина строки
+    static int count;
 public:
     MyString() // конструктор по умолчанию
     {
         cout << "Constructor by Cord\n";
         char* str = nullptr;
         int length = 0;
+    }
+    MyString(char* string,int len)
+    {
+        this->str = string;
+        this->length = len;
     }
     // методы класса
     MyString() //По умолчанию.
@@ -47,14 +53,16 @@ public:
          cout << "Enter coll line : ";
          cin >> length;
      }
+     MyString& GetObj(int, int);
      ~MyString() // деструктор
      {
         cout << "Destructor\n";
+        count--;
         delete[]str;
      }
-     void Setstr(char* string)
+     static int GetCount()  // static метод класса, для работы со static полем класса
      {
-         str = string;
+         return count;
      }
      char* Getstr()
      {
@@ -69,15 +77,36 @@ public:
          return length;
      }
 };
+int MyString::count = 0;
 
-
+MyString::MyString()
+{
+    length = 0;
+    count++;
+}
+MyString::MyString(const char* str, int length, int a, int b)
+{
+    str = a;
+    length = b;
+    count++;
+}
+void MyString::Print()
+{
+    cout << this->str << "\t" << this->length << endl;
+}
+MyString& MyString::GetObj(int a, int b,const char* str, int length)
+{
+    str += a;
+    length += b;
+    return *this;
+}
 
 void main()
 {
     setlocale(LC_ALL, "RUS");
-    MyString obj1("200", "80");
-    obj1.Print();
-    obj1.Input();
-    obj1.Print();
+    cout << MyString::GetCount() << endl;
 
+    MyString a(5, 10);
+    a.Print();
+    cout << a.GetCount() << endl;
 }
