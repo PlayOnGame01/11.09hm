@@ -84,7 +84,7 @@ MyString::MyString()
     length = 0;
     count++;
 }
-MyString::MyString(const char* str, int length, int a, int b)
+MyString::MyString(const char* str, int length, const char* a, int b)
 {
     str = a;
     length = b;
@@ -94,9 +94,9 @@ void MyString::Print()
 {
     cout << this->str << "\t" << this->length << endl;
 }
-MyString& MyString::GetObj(int a, int b,const char* str, int length)
+MyString& MyString::GetObj(const char* a, int b,const char* str, int length)
 {
-    str += a;
+    str = a;
     length += b;
     return *this;
 }
